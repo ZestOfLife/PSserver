@@ -244,7 +244,7 @@ exports.replsocketmode = 0o600;
 //     - gamemanagement: enable/disable games and minigames.
 exports.grouplist = [
 	{
-		symbol: '~#',
+		symbol: 'o',
 		id: "owner",
 		name: "Owner",
 		root: true,
@@ -317,7 +317,7 @@ exports.grouplist = [
 		addhtml: true,
 	},
 	{
-		symbol: '@%',
+		symbol: '$',
 		id: "hmod",
 		name: "Head Moderator",
 		inherit: '@',
@@ -328,7 +328,7 @@ exports.grouplist = [
 		forcerename: true,
 		ip: true,
 		tournamentsmanagement: true,
-		alts: '@%u',
+		alts: '$u',
 		modchatjrmod: true,
 	},
 	{
