@@ -244,7 +244,7 @@ exports.replsocketmode = 0o600;
 //     - gamemanagement: enable/disable games and minigames.
 exports.grouplist = [
 	{
-		symbol: 'o',
+		symbol: '=',
 		id: "owner",
 		name: "Owner",
 		root: true,
