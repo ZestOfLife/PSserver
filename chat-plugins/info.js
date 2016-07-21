@@ -922,7 +922,7 @@ exports.commands = {
 			"+ <b>Helper</b> - They can use ! commands like !groups, and talk during moderated chat<br />" +
 			"% <b>Junior Moderator</b> - The above, and they can mute. Global % can also lock users and check for alts<br />" +
 			"@ <b>Moderator</b> - The above, and they can ban users<br />" +
-			"$ <b>Head Moderator</b> - The above, and they can promote users to Junior Moderator and enable/disable tournament<br />."
+			"$ <b>Head Moderator</b> - The above, and they can promote users to Junior Moderator and enable/disable tournament<br />." +
 			"* <b>Bot</b> - Like Moderator, but makes it clear that this user is a bot<br />" +
 			"&amp; <b>Leader</b> - The above, and they can promote to moderator and force ties<br />" +
 			"# <b>Room Owner</b> - They are leaders of the room and can almost totally control it<br />" +
