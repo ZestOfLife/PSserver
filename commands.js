@@ -1675,8 +1675,14 @@ exports.commands = {
 		if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
 		if (!this.can('modchat', null, room)) return false;
 
-		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 1 && !user.can('modchatall', null, room)) {
+		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 1 && !user.can('modchatvoice', null, room)) {
+			return this.errorReply("/modchat - Access denied for removing a setting higher than " + "autoconfirmed" + ".");
+		}
+		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 1 && !user.can('modchatjrmod', null, room)) {
 			return this.errorReply("/modchat - Access denied for removing a setting higher than " + Config.groupsranking[1] + ".");
+		}
+		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 1 && !user.can('modchatall', null, room)) {
+			return this.errorReply("/modchat - Access denied for removing a setting higher than " + Config.groupsranking[2] + ".");
 		}
 		if (room.requestModchat) {
 			let error = room.requestModchat(user);
@@ -1703,13 +1709,19 @@ exports.commands = {
 				this.errorReply("The rank '" + target + '" was unrecognized as a modchat level.');
 				return this.parse('/help modchat');
 			}
-			if (Config.groupsranking.indexOf(target) > 1 && !user.can('modchatall', null, room)) {
+			if (Config.groupsranking.indexOf(target) > 1 && !user.can('modchatvoice', null, room)) {
+				return this.errorReply("/modchat - Access denied for setting higher than " + "autoconfirmed" + ".");
+			}
+			if (Config.groupsranking.indexOf(target) > 1 && !user.can('modchatjrmod', null, room)) {
 				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[1] + ".");
+			}
+			if (Config.groupsranking.indexOf(target) > 1 && !user.can('modchatall', null, room)) {
+				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[2] + ".");
 			}
 			let roomGroup = (room.auth && room.isPrivate === true ? ' ' : user.group);
 			if (room.auth && user.userid in room.auth) roomGroup = room.auth[user.userid];
 			if (Config.groupsranking.indexOf(target) > Math.max(1, Config.groupsranking.indexOf(roomGroup)) && !user.can('makeroom')) {
-				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[1] + ".");
+				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[2] + ".");
 			}
 			room.modchat = target;
 			break;
@@ -1731,7 +1743,7 @@ exports.commands = {
 			Rooms.global.writeChatRoomData();
 		}
 	},
-	modchathelp: ["/modchat [off/autoconfirmed/+/%/@/*/#/&/~] - Set the level of moderated chat. Requires: *, @ for off/autoconfirmed/+ options, # & ~ for all the options"],
+	modchathelp: ["/modchat [off/autoconfirmed/+/%/@/$/*/#/&/~/⌁] - Set the level of moderated chat. Requires: % for off/autoconfirmed options, * @ for + option and # & ~ for all the options"],
 
 	declare: function (target, room, user) {
 		if (!target) return this.parse('/help declare');
