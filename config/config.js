@@ -254,7 +254,7 @@ exports.grouplist = [
 		symbol: '~',
 		id: "admin",
 		name: "Administrator",
-		jurisdiction: 'u'
+		jurisdiction: 'u',
 		root: true,
 		globalonly: true,
 	},
