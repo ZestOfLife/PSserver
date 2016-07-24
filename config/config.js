@@ -267,7 +267,6 @@ exports.grouplist = [
 		editroom: true,
 		declare: true,
 		modchatall: true,
-		roomonly: true,
 		gamemanagement: true,
 	},
 	{
