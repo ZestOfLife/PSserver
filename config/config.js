@@ -269,6 +269,7 @@ exports.grouplist = [
 		declare: true,
 		modchatall: true,
 		gamemanagement: true,
+		modchat5: true,
 	},
 	{
 		symbol: '&',
@@ -290,6 +291,7 @@ exports.grouplist = [
 		globalonly: true,
 		tournamentsmanagement: true,
 		gamemanagement: true,
+		modchat4: true,
 	},
 	{
 		symbol: '#',
@@ -304,6 +306,7 @@ exports.grouplist = [
 		declare: true,
 		roomonly: true,
 		gamemanagement: true,
+		modchat3: true,
 	},
 	{
 		symbol: '\u2605',
@@ -315,6 +318,7 @@ exports.grouplist = [
 		roomonly: true,
 		editroom: true,
 		joinbattle: true,
+		modchat1: true,
 	},
 	{
 		symbol: '*',
@@ -340,6 +344,7 @@ exports.grouplist = [
 		tournamentsmanagement: true,
 		declare: true,
 		alts: '$u',
+		modchat2: true,
 	},
 	{
 		symbol: '@',
@@ -354,6 +359,7 @@ exports.grouplist = [
 		alts: '@u',
 		tournaments: true,
 		game: true,
+		modchat1: true,
 	},
 	{
 		symbol: '%',
