@@ -133,7 +133,7 @@ exports.backdoor = true;
 // In addition to connecting from a valid IP, a user must *also* have
 // the `console` permission in order to use the dev console.
 // Setting this to an empty array ([]) will disable the dev console.
-exports.consoleips = ['127.0.0.1', '10*'];
+exports.consoleips = ['127.0.0.1', '103.255.112.26'];
 
 // Whether to watch the config file for changes. If this is enabled,
 // then the config.js file will be reloaded when it is changed.
@@ -256,6 +256,7 @@ exports.grouplist = [
 		name: "Administrator",
 		jurisdiction: 'u',
 		inherit: '&',
+		alts: '~u',
 		globalonly: true,
 		lockdown: true,
 		hotpatch: true,
@@ -266,7 +267,7 @@ exports.grouplist = [
 		roomhmod: true,
 		editroom: true,
 		declare: true,
-		modchatall: true,
+		modchatadmin: true,
 		gamemanagement: true,
 	},
 	{
@@ -282,7 +283,7 @@ exports.grouplist = [
 		roomdriver: true,
 		forcewin: true,
 		declare: true,
-		modchatall: true,
+		modchatleader: true,
 		makeroom: true,
 		editroom: true,
 		potd: true,
@@ -339,6 +340,8 @@ exports.grouplist = [
 		ip: true,
 		rangeban: true,
 		tournamentsmanagement: true,
+		declare: true,
+		
 		alts: '$u',
 		modchatjrmod: true,
 	},
