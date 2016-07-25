@@ -1684,6 +1684,9 @@ exports.commands = {
 		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 2 && !user.can('modchatleader', null, room)) {
 			return this.errorReply("/modchat - Access denied for removing a setting higher than " + Config.groupsranking[2] + ".");
 		}
+		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 9 && !user.can('modchatadmin', null, room)) {
+			return this.errorReply("/modchat - Access denied for removing a setting higher than " + Config.groupsranking[9] + ".");
+		}
 		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 10 && !user.can('modchatall', null, room)) {
 			return this.errorReply("/modchat - Access denied for removing a setting higher than " + Config.groupsranking[10] + ".");
 		}
@@ -1720,6 +1723,9 @@ exports.commands = {
 			}
 			if (Config.groupsranking.indexOf(target) > 2 && !user.can('modchatleader', null, room)) {
 				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[2] + ".");
+			}
+			if (Config.groupsranking.indexOf(target) > 9 && !user.can('modchatadmin', null, room)) {
+				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[9] + ".");
 			}
 			if (Config.groupsranking.indexOf(target) > 10 && !user.can('modchatall', null, room)) {
 				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[10] + ".");
