@@ -1690,7 +1690,7 @@ exports.commands = {
 		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 8 && !user.can('modchat4', null, room)) {
 			return this.errorReply("/modchat - Access denied for removing a setting higher than " + Config.groupsranking[8] + ".");
 		}
-		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 9 && !user.can('modchatall', null, room)) {
+		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 9 && !user.can('modchat5', null, room)) {
 			return this.errorReply("/modchat - Access denied for removing a setting higher than " + Config.groupsranking[9] + ".");
 		}
 		if (room.requestModchat) {
@@ -1733,7 +1733,7 @@ exports.commands = {
 			if (Config.groupsranking.indexOf(target) > 8 && !user.can('modchat4', null, room)) {
 				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[8] + ".");
 			}
-			if (Config.groupsranking.indexOf(target) > 9 && !user.can('modchatall', null, room)) {
+			if (Config.groupsranking.indexOf(target) > 9 && !user.can('modchat5', null, room)) {
 				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[9] + ".");
 			}
 			let roomGroup = (room.auth && room.isPrivate === true ? ' ' : user.group);
