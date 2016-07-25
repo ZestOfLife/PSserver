@@ -303,7 +303,7 @@ exports.grouplist = [
 		roomhmod: true,
 		editroom: true,
 		declare: true,
-		modchatall: true,
+		modchatroomowner: true,
 		roomonly: true,
 		gamemanagement: true,
 	},
