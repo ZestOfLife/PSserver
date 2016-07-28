@@ -1725,7 +1725,7 @@ exports.commands = {
 			room.modchat = 'autoconfirmed';
 			break;
 		case 'owner':
-			target = '\u2301'
+			target = '\u2301';
 			break;
 		case 'player':
 			target = '\u2605';
