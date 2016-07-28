@@ -1748,7 +1748,7 @@ exports.commands = {
 				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[2] + ".");
 			}
 			if (Config.groupsranking.indexOf(target) > 7 && !user.can('modchatleader', null, room)) {
-				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[2] + ".");
+				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[7] + ".");
 			}
 			if (Config.groupsranking.indexOf(target) > 8 && !user.can('modchatadmin', null, room)) {
 				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[8] + ".");
