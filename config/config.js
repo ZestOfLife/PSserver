@@ -268,6 +268,7 @@ exports.grouplist = [
 		editroom: true,
 		declare: true,
 		gamemanagement: true,
+		modchatadmin: true,
 	},
 	{
 		symbol: '&',
@@ -289,7 +290,7 @@ exports.grouplist = [
 		globalonly: true,
 		tournamentsmanagement: true,
 		gamemanagement: true,
-		modchatall: true,
+		modchatleader: true,
 	},
 	{
 		symbol: '#',
