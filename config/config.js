@@ -290,6 +290,7 @@ exports.grouplist = [
 		globalonly: true,
 		tournamentsmanagement: true,
 		gamemanagement: true,
+		modchatroomowner: true,
 		modchatleader: true,
 	},
 	{
@@ -305,7 +306,7 @@ exports.grouplist = [
 		declare: true,
 		roomonly: true,
 		gamemanagement: true,
-		modchatall: true,
+		modchatroomowner: true,
 	},
 	{
 		symbol: '\u2605',
