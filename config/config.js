@@ -248,6 +248,7 @@ exports.grouplist = [
 		id: "owner",
 		name: "Owner",
 		root: true,
+		modchatall: true,
 		console: true,
 	},
 	{
