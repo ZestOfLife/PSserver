@@ -1128,6 +1128,7 @@ exports.commands = {
 		let userid = targetUser.getLastId();
 		this.add('|unlink|' + userid);
 		if (userid !== toId(this.inputUsername)) this.add('|unlink|' + toId(this.inputUsername));
+		this.globalModlog("WARN", targetUser, " by " + user.name + (target ? ": " + target : ""));
 	},
 	globalwarnhelp: ["/globalwarn OR /gk [username], [reason] - Warns a user globally aka from anywhere showing them the Pok\u00e9mon Showdown Rules and [reason] in an overlay. Requires: + % @ $ & ~ ⌁"],
 	
