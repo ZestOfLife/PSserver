@@ -1743,10 +1743,10 @@ exports.commands = {
 			if (Config.groupsranking.indexOf(target) > 2 && !user.can('modchatroomowner', null, room)) {
 				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[2] + ".");
 			}
-			if (Config.groupsranking.indexOf(target) > 7 && !user.can('modchatleader', null, room)) {
+			if (Config.groupsranking.indexOf(target) > 7 && !user.can('modchatleader', null, room) && !user.can('modchatroomowner')) {
 				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[7] + ".");
 			}
-			if (Config.groupsranking.indexOf(target) > 8 && !user.can('modchatadmin', null, room)) {
+			if (Config.groupsranking.indexOf(target) > 8 && !user.can('modchatadmin', null, room) && !user.can('modchatroomowner')) {
 				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[8] + ".");
 			}
 			if (Config.groupsranking.indexOf(target) > 9 && !user.can('modchatall', null, room)) {
