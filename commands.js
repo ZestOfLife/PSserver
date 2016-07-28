@@ -21,7 +21,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 
 const MAX_REASON_LENGTH = 300;
-const MUTE_LENGTH = 7 * 60 * 1000;
+const MUTE_LENGTH = 10 * 60 * 1000;
 const HOURMUTE_LENGTH = 60 * 60 * 1000;
 
 exports.commands = {
@@ -1675,23 +1675,14 @@ exports.commands = {
 		if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
 		if (!this.can('modchat', null, room)) return false;
 
-		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 0 && !user.can('modchat', null, room)) {
+		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 0 && !user.can('modchatvoice', null, room)) {
 			return this.errorReply("/modchat - Access denied for removing a setting higher than " + "autoconfirmed" + ".");
 		}
-		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 1 && !user.can('modchatvoice', null, room)) {
+		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 1 && !user.can('modchatjrmod', null, room)) {
 			return this.errorReply("/modchat - Access denied for removing a setting higher than " + Config.groupsranking[1] + ".");
 		}
-		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 2 && !user.can('modchatjrmod', null, room)) {
+		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 2 && !user.can('modchatroomowner', null, room)) {
 			return this.errorReply("/modchat - Access denied for removing a setting higher than " + Config.groupsranking[2] + ".");
-		}
-		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 7 && !user.can('modchatleader', null, room)) {
-			return this.errorReply("/modchat - Access denied for removing a setting higher than " + Config.groupsranking[7] + ".");
-		}
-		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 8 && !user.can('modchatadmin', null, room)) {
-			return this.errorReply("/modchat - Access denied for removing a setting higher than " + Config.groupsranking[8] + ".");
-		}
-		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 9 && !user.can('modchatall', null, room)) {
-			return this.errorReply("/modchat - Access denied for removing a setting higher than " + Config.groupsranking[9] + ".");
 		}
 		if (room.requestModchat) {
 			let error = room.requestModchat(user);
@@ -1710,6 +1701,9 @@ exports.commands = {
 		case 'autoconfirmed':
 			room.modchat = 'autoconfirmed';
 			break;
+		case 'owner':
+			target = '\u2301'
+			break;
 		case 'player':
 			target = '\u2605';
 			/* falls through */
@@ -1718,13 +1712,13 @@ exports.commands = {
 				this.errorReply("The rank '" + target + '" was unrecognized as a modchat level.');
 				return this.parse('/help modchat');
 			}
-			if (Config.groupsranking.indexOf(target) > 0 && !user.can('modchat', null, room)) {
+			if (Config.groupsranking.indexOf(target) > 0 && !user.can('modchatvoice', null, room)) {
 				return this.errorReply("/modchat - Access denied for setting higher than " + "autoconfirmed" + ".");
 			}
-			if (Config.groupsranking.indexOf(target) > 1 && !user.can('modchatvoice', null, room)) {
+			if (Config.groupsranking.indexOf(target) > 1 && !user.can('modchatjrmod', null, room)) {
 				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[1] + ".");
 			}
-			if (Config.groupsranking.indexOf(target) > 2 && !user.can('modchatjrmod', null, room)) {
+			if (Config.groupsranking.indexOf(target) > 2 && !user.can('modchatroomowner', null, room)) {
 				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[2] + ".");
 			}
 			if (Config.groupsranking.indexOf(target) > 7 && !user.can('modchatleader', null, room)) {
@@ -1771,7 +1765,7 @@ exports.commands = {
 		this.add('|raw|<div class="broadcast-blue"><b>' + Tools.escapeHTML(target) + '</b></div>');
 		this.logModCommand(user.name + " declared " + target);
 	},
-	declarehelp: ["/declare [message] - Anonymously announces a message. Requires: # * & ~"],
+	declarehelp: ["/declare [message] - Anonymously announces a message. Requires: * $ # & ~ ⌁"],
 
 	htmldeclare: function (target, room, user) {
 		if (!target) return this.parse('/help htmldeclare');
@@ -1797,7 +1791,7 @@ exports.commands = {
 		}
 		this.logModCommand(user.name + " globally declared " + target);
 	},
-	globaldeclarehelp: ["/globaldeclare [message] - Anonymously announces a message to every room on the server. Requires: ~"],
+	globaldeclarehelp: ["/globaldeclare [message] - Anonymously announces a message to every room on the server. Requires: ~ ⌁"],
 
 	cdeclare: 'chatdeclare',
 	chatdeclare: function (target, room, user) {
@@ -1811,7 +1805,7 @@ exports.commands = {
 		}
 		this.logModCommand(user.name + " globally declared (chat level) " + target);
 	},
-	chatdeclarehelp: ["/cdeclare [message] - Anonymously announces a message to all chatrooms on the server. Requires: ~"],
+	chatdeclarehelp: ["/cdeclare [message] - Anonymously announces a message to all chatrooms on the server. Requires: ~ ⌁"],
 
 	wall: 'announce',
 	announce: function (target, room, user) {
@@ -1824,7 +1818,7 @@ exports.commands = {
 
 		return '/announce ' + target;
 	},
-	announcehelp: ["/announce OR /wall [message] - Makes an announcement. Requires: % @ * # & ~"],
+	announcehelp: ["/announce OR /wall [message] - Makes an announcement. Requires: % @ * $ # & ~ ⌁"],
 
 	fr: 'forcerename',
 	forcerename: function (target, room, user) {
@@ -1848,7 +1842,7 @@ exports.commands = {
 		targetUser.send("|nametaken||" + user.name + " considers your name inappropriate" + (reason ? ": " + reason : "."));
 		return true;
 	},
-	forcerenamehelp: ["/forcerename OR /fr [username], [reason] - Forcibly change a user's name and shows them the [reason]. Requires: % @ * & ~"],
+	forcerenamehelp: ["/forcerename OR /fr [username], [reason] - Forcibly change a user's name and shows them the [reason]. Requires: % @ * $ & ~ ⌁"],
 
 	nl: 'namelock',
 	namelock: function (target, room, user) {
@@ -1869,7 +1863,7 @@ exports.commands = {
 		targetUser.popup("|modal|" + user.name + " has locked your name and you can't change names anymore" + (reason ? ": " + reason : "."));
 		return true;
 	},
-	namelockhelp: ["/namelock OR /nl [username], [reason] - Name locks a user and shows them the [reason]. Requires: % @ * & ~"],
+	namelockhelp: ["/namelock OR /nl [username], [reason] - Name locks a user and shows them the [reason]. Requires: % @ $ * & ~ ⌁"],
 
 	unl: 'unnamelock',
 	unnamelock: function (target, room, user) {
@@ -1892,7 +1886,7 @@ exports.commands = {
 			this.errorReply("User '" + target + "' is not namelocked.");
 		}
 	},
-	unnamelockhelp: ["/unnamelock [username] - Unnamelocks the user. Requires: % @ * & ~"],
+	unnamelockhelp: ["/unnamelock [username] - Unnamelocks the user. Requires: % @ * $ & ~ ⌁"],
 
 	hidetext: function (target, room, user) {
 		if (!target) return this.parse('/help hidetext');
@@ -1920,7 +1914,7 @@ exports.commands = {
 		this.add('|unlink|' + hidetype + userid);
 		if (userid !== toId(this.inputUsername)) this.add('|unlink|' + hidetype + toId(this.inputUsername));
 	},
-	hidetexthelp: ["/hidetext [username] - Removes a locked or banned user's messages from chat (includes users banned from the room). Requires: % (global only), @ * # & ~"],
+	hidetexthelp: ["/hidetext [username] - Removes a locked or banned user's messages from chat (includes users banned from the room). Requires: % (global only), @ * $ # & ~ ⌁"],
 
 	banwords: 'banword',
 	banword: {
@@ -2008,8 +2002,8 @@ exports.commands = {
 		},
 	},
 	banwordhelp: ["/banword add [words] - Adds the comma-separated list of phrases (& or ~ can also input regex) to the banword list of the current room. Requires: # & ~",
-					"/banword delete [words] - Removes the comma-separated list of phrases from the banword list. Requires: # & ~",
-					"/banword list - Shows the list of banned words in the current room. Requires: @ * # & ~"],
+					"/banword delete [words] - Removes the comma-separated list of phrases from the banword list. Requires: # & ~ ⌁",
+					"/banword list - Shows the list of banned words in the current room. Requires: @ * $ # & ~ ⌁"],
 
 	modlog: function (target, room, user, connection) {
 		let lines = 0;
@@ -2139,7 +2133,7 @@ exports.commands = {
 	},
 	modloghelp: ["/modlog [roomid|all], [n] - Roomid defaults to current room.",
 		"If n is a number or omitted, display the last n lines of the moderator log. Defaults to 15.",
-		"If n is not a number, search the moderator log for 'n' on room's log [roomid]. If you set [all] as [roomid], searches for 'n' on all rooms's logs. Requires: % @ * # & ~"],
+		"If n is not a number, search the moderator log for 'n' on room's log [roomid]. If you set [all] as [roomid], searches for 'n' on all rooms's logs. Requires: % @ * $ # & ~ ⌁"],
 
 	/*********************************************************
 	 * Server management commands
@@ -2237,7 +2231,7 @@ exports.commands = {
 		}
 		this.errorReply("Your hot-patch command was unrecognized.");
 	},
-	hotpatchhelp: ["Hot-patching the game engine allows you to update parts of Showdown without interrupting currently-running battles. Requires: ~",
+	hotpatchhelp: ["Hot-patching the game engine allows you to update parts of Showdown without interrupting currently-running battles. Requires: ~ ⌁",
 		"Hot-patching has greater memory requirements than restarting.",
 		"/hotpatch chat - reload commands.js and the chat-plugins",
 		"/hotpatch battles - spawn new simulator processes",
@@ -2290,7 +2284,7 @@ exports.commands = {
 
 		this.logEntry(user.name + " used /lockdown");
 	},
-	lockdownhelp: ["/lockdown - locks down the server, which prevents new battles from starting so that the server can eventually be restarted. Requires: ~"],
+	lockdownhelp: ["/lockdown - locks down the server, which prevents new battles from starting so that the server can eventually be restarted. Requires: ~ ⌁"],
 
 	prelockdown: function (target, room, user) {
 		if (!this.can('lockdown')) return false;
@@ -2401,7 +2395,7 @@ exports.commands = {
 			error => connection.sendTo(room, "Something went wrong while loading ipbans.txt: " + error)
 		);
 	},
-	loadbanlisthelp: ["/loadbanlist - Loads the bans located at ipbans.txt. The command is executed automatically at startup. Requires: ~"],
+	loadbanlisthelp: ["/loadbanlist - Loads the bans located at ipbans.txt. The command is executed automatically at startup. Requires: ~ ⌁"],
 
 	refreshpage: function (target, room, user) {
 		if (!this.can('hotpatch')) return false;
@@ -2473,7 +2467,7 @@ exports.commands = {
 		}
 		this.logEntry(user.name + " used /crashfixed");
 	},
-	crashfixedhelp: ["/crashfixed - Ends the active lockdown caused by a crash without the need of a restart. Requires: ~"],
+	crashfixedhelp: ["/crashfixed - Ends the active lockdown caused by a crash without the need of a restart. Requires: ~ ⌁"],
 
 	'memusage': 'memoryusage',
 	memoryusage: function (target) {
