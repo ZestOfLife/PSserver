@@ -383,6 +383,7 @@ exports.grouplist = [
 		joinbattle: true,
 		minigame: true,
 		modchat: true,
+		globalwarn: true,
 	},
 	{
 		symbol: '+',
@@ -391,7 +392,7 @@ exports.grouplist = [
 		inherit: ' ',
 		alts: 's',
 		broadcast: true,
-		warn: ' ',
+		globalwarn: '\u2605u',
 	},
 	{
 		symbol: ' ',
