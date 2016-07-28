@@ -1741,13 +1741,19 @@ exports.commands = {
 			if (Config.groupsranking.indexOf(target) > 1 && !user.can('modchatjrmod', null, room)) {
 				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[1] + ".");
 			}
-			if (Config.groupsranking.indexOf(target) > 2 && !user.can('modchatall', null, room)) {
+			if (Config.groupsranking.indexOf(target) > 2 && !user.can('modchatleader', null, room)) {
 				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[2] + ".");
+			}
+			if (Config.groupsranking.indexOf(target) > 8 && !user.can('modchatadmin', null, room)) {
+				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[8] + ".");
+			}
+			if (Config.groupsranking.indexOf(target) > 9 && !user.can('modchatall', null, room)) {
+				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[9] + ".");
 			}
 			let roomGroup = (room.auth && room.isPrivate === true ? ' ' : user.group);
 			if (room.auth && user.userid in room.auth) roomGroup = room.auth[user.userid];
 			if (Config.groupsranking.indexOf(target) > Math.max(1, Config.groupsranking.indexOf(roomGroup)) && !user.can('makeroom')) {
-				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[1] + ".");
+				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[7] + ".");
 			}
 			room.modchat = target;
 			break;
