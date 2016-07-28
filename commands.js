@@ -1707,6 +1707,15 @@ exports.commands = {
 		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 2 && !user.can('modchatroomowner', null, room)) {
 			return this.errorReply("/modchat - Access denied for removing a setting higher than " + Config.groupsranking[2] + ".");
 		}
+		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 7 && !user.can('modchatleader', null, room)) {
+			return this.errorReply("/modchat - Access denied for removing a setting higher than " + Config.groupsranking[7] + ".");
+		}
+		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 8 && !user.can('modchatadmin', null, room)) {
+			return this.errorReply("/modchat - Access denied for removing a setting higher than " + Config.groupsranking[8] + ".");
+		}
+		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 9 && !user.can('modchatall', null, room)) {
+			return this.errorReply("/modchat - Access denied for removing a setting higher than " + Config.groupsranking[9] + ".");
+		}
 		if (room.requestModchat) {
 			let error = room.requestModchat(user);
 			if (error) return this.errorReply(error);
@@ -1725,7 +1734,8 @@ exports.commands = {
 			room.modchat = 'autoconfirmed';
 			break;
 		case 'owner':
-			target = '\u2301';
+			room.modchat = '\u2301';
+			break;
 		case 'player':
 			target = '\u2605';
 			/* falls through */
@@ -1743,10 +1753,10 @@ exports.commands = {
 			if (Config.groupsranking.indexOf(target) > 2 && !user.can('modchatroomowner', null, room)) {
 				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[2] + ".");
 			}
-			if (Config.groupsranking.indexOf(target) > 7 && !user.can('modchatleader', null, room) && !user.can('modchatroomowner')) {
+			if (Config.groupsranking.indexOf(target) > 7 && !user.can('modchatleader', null, room)) {
 				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[7] + ".");
 			}
-			if (Config.groupsranking.indexOf(target) > 8 && !user.can('modchatadmin', null, room) && !user.can('modchatroomowner')) {
+			if (Config.groupsranking.indexOf(target) > 8 && !user.can('modchatadmin', null, room)) {
 				return this.errorReply("/modchat - Access denied for setting higher than " + Config.groupsranking[8] + ".");
 			}
 			if (Config.groupsranking.indexOf(target) > 9 && !user.can('modchatall', null, room)) {
