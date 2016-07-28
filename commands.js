@@ -1106,8 +1106,31 @@ exports.commands = {
 		this.add('|unlink|' + userid);
 		if (userid !== toId(this.inputUsername)) this.add('|unlink|' + toId(this.inputUsername));
 	},
-	warnhelp: ["/warn OR /k [username], [reason] - Warns a user showing them the Pok\u00e9mon Showdown Rules and [reason] in an overlay. Requires: % @ # & ~"],
+	warnhelp: ["/warn OR /k [username], [reason] - Warns a user showing them the Pok\u00e9mon Showdown Rules and [reason] in an overlay. Requires: % @ # & ~ ⌁"],
 
+	gkick: 'globalwarn',
+	gk: 'globalwarn',
+	gwarn: 'globalwarn',
+	globalwarn: function (target, room, user) {
+		if (!target) return this.parse('/help globalwarn');
+		if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
+
+		target = this.splitTarget(target);
+		let targetUser = this.targetUser;
+		if (!targetUser || !targetUser.connected) return this.errorReply("User '" + this.targetUsername + "' not found.");
+		if (target.length > MAX_REASON_LENGTH) {
+			return this.errorReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
+		}
+		if (!this.can('globalwarn', targetUser)) return false;
+
+		this.addModCommand("" + targetUser.name + " was warned by " + user.name + "." + (target ? " (" + target + ")" : ""));
+		targetUser.send('|c|~|/warn ' + target);
+		let userid = targetUser.getLastId();
+		this.add('|unlink|' + userid);
+		if (userid !== toId(this.inputUsername)) this.add('|unlink|' + toId(this.inputUsername));
+	},
+	globalwarnhelp: ["/globalwarn OR /gk [username], [reason] - Warns a user globally aka from anywhere showing them the Pok\u00e9mon Showdown Rules and [reason] in an overlay. Requires: + % @ $ & ~ ⌁"],
+	
 	redirect: 'redir',
 	redir: function (target, room, user, connection) {
 		if (!target) return this.parse('/help redirect');
