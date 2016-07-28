@@ -292,6 +292,7 @@ exports.grouplist = [
 		tournamentsmanagement: true,
 		gamemanagement: true,
 		modchatleader: true,
+		modchatroomowmer: true,
 	},
 	{
 		symbol: '#',
