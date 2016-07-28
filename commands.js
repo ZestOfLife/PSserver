@@ -1726,7 +1726,6 @@ exports.commands = {
 			break;
 		case 'owner':
 			target = '\u2301';
-			break;
 		case 'player':
 			target = '\u2605';
 			/* falls through */
