@@ -267,7 +267,6 @@ exports.grouplist = [
 		roomhmod: true,
 		editroom: true,
 		declare: true,
-		modchatall: true,
 		gamemanagement: true,
 	},
 	{
@@ -305,7 +304,7 @@ exports.grouplist = [
 		declare: true,
 		roomonly: true,
 		gamemanagement: true,
-		modchatroomowner: true,
+		modchatall: true,
 	},
 	{
 		symbol: '\u2605',
