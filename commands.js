@@ -1098,7 +1098,7 @@ exports.commands = {
 		if (target.length > MAX_REASON_LENGTH) {
 			return this.errorReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
 		}
-		if (!this.can('warn', targetUser, room)) return false;
+		if (!this.can('globalwarn', targetUser) || !this.can('warn', targetUser, room)) return false;
 
 		this.addModCommand("" + targetUser.name + " was warned by " + user.name + "." + (target ? " (" + target + ")" : ""));
 		targetUser.send('|c|~|/warn ' + target);
@@ -1106,7 +1106,7 @@ exports.commands = {
 		this.add('|unlink|' + userid);
 		if (userid !== toId(this.inputUsername)) this.add('|unlink|' + toId(this.inputUsername));
 	},
-	warnhelp: ["/warn OR /k [username], [reason] - Warns a user showing them the Pok\u00e9mon Showdown Rules and [reason] in an overlay. Requires: % @ # & ~ ⌁"],
+	warnhelp: ["/warn OR /k [username], [reason] - Warns a user showing them the Pok\u00e9mon Showdown Rules and [reason] in an overlay. Requires: +(Global only) % @ # & ~ ⌁"],
 
 	gkick: 'globalwarn',
 	gk: 'globalwarn',
