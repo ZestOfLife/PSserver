@@ -1121,7 +1121,7 @@ exports.commands = {
 		if (target.length > MAX_REASON_LENGTH) {
 			return this.errorReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
 		}
-		if (!this.can('globalwarn', targetUser) || !this.can('warn', targetUser, room)) return false;
+		if (!this.can('globalwarn', targetUser) && !this.can('warn', targetUser, room)) return false;
 
 		this.addModCommand("" + targetUser.name + " was warned by " + user.name + "." + (target ? " (" + target + ")" : ""));
 		targetUser.send('|c|~|/warn ' + target);
