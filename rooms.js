@@ -234,7 +234,7 @@ let Room = (() => {
 			if (this.tour && this.tour.room) {
 				return this.tour.room.getAuth(user);
 			}
-			if (this.isPrivate === true) {
+			if (this.isPrivate === true && !user.can('makeroom')) {
 				return ' ';
 			}
 		}
